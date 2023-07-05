@@ -16,7 +16,7 @@
  *  -----------------------------------------------------------------------
  * Author       : 焱铭
  * Date         : 2023-07-01 16:06:50 +0800
- * LastEditTime : 2023-07-05 15:16:16 +0800
+ * LastEditTime : 2023-07-05 15:17:23 +0800
  * Github       : https://github.com/YanMing-lxb/
  * FilePath     : \SCI-LaTeX-Submission-Process-for-Elsevier\README.md
  * Description  : 
@@ -29,7 +29,6 @@
 自制的爱斯维尔期刊的LaTeX投稿工作流程模板
 
 ## 工作流程
-![Alt text](\.Assets\Schematic.jpg)
 ### Manuscript-CN
 ### Manuscript-EN
 ### Revision-Major
@@ -39,5 +38,3 @@
 
 
 ## 参与贡献
-
-
