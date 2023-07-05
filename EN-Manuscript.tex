@@ -1,0 +1,224 @@
+%
+%  =======================================================================
+%  ····Y88b···d88P················888b·····d888·d8b·······················
+%  ·····Y88b·d88P·················8888b···d8888·Y8P·······················
+%  ······Y88o88P··················88888b·d88888···························
+%  ·······Y888P··8888b···88888b···888Y88888P888·888·88888b·····d88b·······
+%  ········888······"88b·888·"88b·888·Y888P·888·888·888·"88b·d88P"88b·····
+%  ········888···d888888·888··888·888··Y8P··888·888·888··888·888··888·····
+%  ········888··888··888·888··888·888···"···888·888·888··888·Y88b·888·····
+%  ········888··"Y888888·888··888·888·······888·888·888··888··"Y88888·····
+%  ·······························································888·····
+%  ··························································Y8b·d88P·····
+%  ···························································"Y88P"······
+%  =======================================================================
+% 
+%  -----------------------------------------------------------------------
+% Author       : 焱铭
+% Date         : 2023-07-01 15:54:14 +0800
+% LastEditTime : 2023-07-05 13:19:25 +0800
+% FilePath     : \SCI-LaTeX-Submission-Process-for-Elsevier\EN-Manuscript.tex
+% Description  : Manuscript-CN ⇒ Manuscript-CN ⇒ Major-Revision ⇒ Minor-Revision ⇒ Accepted Manuscript ⇒ Final Manuscript
+%  -----------------------------------------------------------------------
+%
+
+\documentclass[preprint,5p,sort&compress,times,10pt]{elsarticle} % preprint review  % compress压缩引用序号 
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+% ------------------------------------------------------------------------------------------------------------
+%                                                  前言设置
+% ------------------------------------------------------------------------------------------------------------
+% 公式
+\usepackage{amsmath} % 公式输入需要 equation 以及多行公式 [fleqn] 所有公式左对齐
+\usepackage{amssymb} % The amsthm package provides extended theorem environments
+\usepackage{xcolor} % 修稿标注时所需颜色宏
+\usepackage{lineno} % 该宏包可显示行号
+
+
+% % -----------------------------------------------------
+% %                        中文高亮文本设置               *******************************************************
+% % -----------------------------------------------------
+% \usepackage{ctex} % 中文宏包，取消注释即可输入中文内容 
+% \usepackage{xeCJKfntef} % 中文高亮设置，导入此包支持汉字特殊下划线效果 
+% \newcommand{\gl}{\CJKsout*[thickness=2.5ex,format=\color{yellow}]} % 新定义高亮命令\gl 用来高亮显示中文
+
+% -----------------------------------------------------
+%                        表格格式设置
+% -----------------------------------------------------
+\usepackage[caption=false,farskip=0pt,labelfont={bf}]{subfig} % 设置子图所需宏包
+\usepackage{booktabs} % 三线表
+\usepackage{array} % 设置表格单元宽度
+\usepackage{multirow} % 表格行合并单元格设置
+\usepackage{threeparttable} % 添加表格注释
+
+\usepackage[labelfont={bf}]{caption} % 题注字体加粗
+\usepackage{setspace}  % 使用间距宏包
+
+% -----------------------------------------------------
+%                        术语表设置
+% -----------------------------------------------------
+\usepackage{ifthen}
+\usepackage{framed} % Framing content
+\usepackage{multicol} % Multiple columns environment
+\usepackage[]{nomencl} % Nomenclature package %noprefix
+\usepackage{etoolbox}
+
+% 术语表详细设置
+\renewcommand*\nompreamble{\begin{multicols}{2}} % 设置术语表为双栏显示
+\renewcommand*\nompostamble{\end{multicols}}
+
+% 更改术语之间的垂直行间距
+\newlength{\nomitemorigsep}
+\setlength{\nomitemorigsep}{\nomitemsep}
+\setlength{\nomitemsep}{-1.25\parsep} % Baseline skip between items
+
+% 创建术语表分组
+\renewcommand{\nomgroup}[1]{%
+\ifthenelse{\equal{#1}{A}}{\vspace{6pt} \item[\textbf{Greek symbols}]}{%
+\ifthenelse{\equal{#1}{B}}{\vspace{6pt} \item[\textbf{Subscripts}]}{%
+\ifthenelse{\equal{#1}{C}}{\vspace{6pt} \item[\textbf{Abbreviations}]}{}
+}}
+
+\itemsep\nomitemsep % 应用上面设置的术语垂直行间距
+}
+\makenomenclature % 打印术语表
+
+% -----------------------------------------------------
+%                        链接设置
+% -----------------------------------------------------
+\usepackage{hyperref} % 对目录生成链接，注：该宏包可能与其他宏包冲突，故放在所有引用的宏包之后
+\hypersetup{colorlinks = true, % 将链接文字带颜色
+    citecolor=blue, linkcolor=black, urlcolor=black,
+	bookmarksopen = true, % 展开书签
+	bookmarksnumbered = true, % 书签带章节编号
+	pdftitle = Multi-objective optimization microchannel heat sink with embedded module with ribs and pin-fins, % 标题
+	pdfauthor = Xue Bin Li} % 作者
+    %\setlength{\mathindent}{0pt} % 将公式的缩进调整为0
+
+% -----------------------------------------------------
+%                        题注设置
+% -----------------------------------------------------
+\usepackage[capitalize]{cleveref} % 引用宏包 ，该宏包要在 hyperref后引用 noabbrev 引用前缀为缩写
+% 关于题注的设置
+\captionsetup[subfigure]{subrefformat=simple,labelformat=simple,listofformat=subsimple}
+\renewcommand\thesubfigure{(\alph{subfigure})} % 该代码与上一行 设置引用前缀子图序号带圆括号
+\renewcommand{\figurename}{Fig.} %题注中使默认的图名字改为图显示
+\renewcommand{\tablename}{Table} %题注中使默认的表名字改为表显示
+% \crefname{theorem}{定理}{定理}
+% \crefname{lemma}{引理}{引理}
+% \crefname{definition}{定义}{定义}
+\crefname{figure}{Fig.}{Fig.} % 更改引用前缀 参数二为单独引用
+\crefname{table}{Table}{Table} % 参数三为多个引用
+\crefname{equation}{}{Eqs.}%Eq.
+% \crefname{algorithm}{算法}{算法}
+
+% -----------------------------------------------------
+%                        自定义命令                     *******************************************************
+% -----------------------------------------------------
+\newcommand{\Workflow}{1-Manuscript-CN}
+\graphicspath{{\Workflow/Pictures/},}  % 图片所在文件夹，可放置多个文件夹，用,分隔。
+\newcommand{\Nomenclature}{\input{\Workflow/Section/Nomenclature}} % 定义新命令\Nomenclature用于包含术语表的内容
+
+% -----------------------------------------------------
+%                        目标期刊
+% -----------------------------------------------------
+\journal{Applied Thermal Engineering} % 输入要投稿的期刊
+
+
+% ------------------------------------------------------------------------------------------------------------
+%                                                  正文内容
+% ------------------------------------------------------------------------------------------------------------
+\begin{document}
+% \linenumbers % 增加行号 提交修改稿时用
+
+% -----------------------------------------------------
+%                        封面内容
+% -----------------------------------------------------
+\begin{frontmatter}
+
+
+    \title{Multi-objective optimization microchannel heat sink with embedded module with ribs and pin-fins}
+
+    \author[rvt]{Xuebin LI\corref{cor2}}
+    \author[rvt]{Chunquan LI\corref{cor2}}
+    \author[rvt]{Hongyan HUANG\corref{cor1}}%\fnref{fn1}
+    \ead{hhy7844@guet.edu.cn}
+    \author[rvt]{Yuanhao ZHENG}%\fnref{fn1}
+
+
+    \cortext [cor1]{Corresponding author}  % 通讯作者
+    \cortext [cor2]{These authors contributed to the work equllly and should be regarded as co-first authors.} % 共同一作声明，没有可去掉
+    \fntext[fn1]{This is the specimen author footnote.} % 关于作者的介绍之类，没有可去掉
+
+    \affiliation[rvt]{organization={Guilin University Of Electronic Technology}, %Department and Organization
+        addressline={No.1 Jinji Road, Qixing District},
+        city={Guilin},
+        postcode={541004},
+        state={the Guangxi Zhuang Autonomous Region},
+        country={China}}
+
+    \begin{abstract}
+        A new microchannel heat sink with embedded modules with ribs and pin-fins is proposed as an effective solution to realize microchannel heat dissipation within low-temperature co-fired ceramic substrates.
+    \end{abstract}
+
+    % 图片摘要设置
+    %Graphical abstract
+    % \begin{graphicalabstract}
+    %     \centering
+    %     \includegraphics*[width=1 \textwidth]{Schematic.jpg}
+    % \end{graphicalabstract}
+
+
+    \begin{highlights}
+        \item Microchannel cooling in a Low-Temperature Co-fired Ceramic substrate;
+        \item A comparison with the performance of similar designs;
+        \item Numerical study of three parameters of this microchannel heat sink.
+    \end{highlights}
+
+    \begin{keyword}
+        Microchannel heat sink \sep Embedded modules \sep LTCC \sep Rib \sep Pin-fin
+    \end{keyword}
+
+\end{frontmatter}
+
+
+\input{\Workflow/Section/Section1.tex}
+
+\input{\Workflow/Section/Section2.tex}
+
+\input{\Workflow/Section/Section3.tex}
+
+\input{\Workflow/Section/Section4.tex}
+
+\input{\Workflow/Section/Section5.tex}
+
+
+
+% section 加* 表示不显示序号
+\section*{Declaration of Competing Interest}
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+\section*{Formatting of funding sources}
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%% \appendix
+
+%% 参考文献
+\bibliographystyle{elsarticle-num} % 加载参考文献样式文件
+\bibliography{References} % 参考文献bib库
+
+\end{document}
+\endinput
+%%
+%% End of file `elsarticle-template-num.tex'.
