@@ -16,17 +16,17 @@
  *  -----------------------------------------------------------------------
  * Author       : 焱铭
  * Date         : 2023-07-01 16:06:50 +0800
- * LastEditTime : 2023-07-04 22:34:27 +0800
+ * LastEditTime : 2023-07-05 13:58:32 +0800
  * Github       : https://github.com/YanMing-lxb/
- * FilePath     : \multi-objective_optimization_microchannel_heat_sink-with_embedded_module_with_ribs_and_pin-fins\README.md
+ * FilePath     : \SCI-LaTeX-Submission-Process-for-Elsevier\README.md
  * Description  : 
  *  -----------------------------------------------------------------------
  -->
 
-# Multi-objective_optimization_microchannel_heat_sink with_embedded_module_with_ribs_and_pin-fins
+# SCI-LaTeX-Submission-Process-for-Elsevier
 
 ## 介绍
-名为Multi-objective optimization microchannel heat sink with embedded module with ribs and pin-fins的 LaTeX SCI论文项目
+自制的爱斯维尔期刊的LaTeX投稿工作流程模板
 
 ## 工作流程
 
@@ -40,8 +40,4 @@
 
 ## 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
 
