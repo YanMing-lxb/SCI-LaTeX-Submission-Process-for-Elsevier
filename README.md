@@ -24,7 +24,6 @@
  -->
 
 # SCI-LaTeX-Submission-Process-for-Elsevier
-![Schematic](https://github.com/YanMing-lxb/SCI-LaTeX-Submission-Process-for-Elsevier/assets/113030089/cd2125d9-fbe2-4faa-af9b-656610b1a088)
 
 ## 介绍
 自制的爱斯维尔期刊的LaTeX投稿工作流程模板
