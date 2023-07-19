@@ -21,7 +21,9 @@
 % Description  : Manuscript-CN ⇒ Manuscript-CN ⇒ Major-Revision ⇒ Minor-Revision ⇒ Accepted Manuscript ⇒ Final Manuscript
 %  -----------------------------------------------------------------------
 %
-
+\special{dvipdfmx:config z 0} % XeLaTeX取消PDF压缩，加快编译速度
+% \pdfcompresslevel=0 % PdfLaTeX取消PDF压缩，加快编译速度
+% \pdfobjcompresslevel=0 % LuaLaTeX取消PDF压缩，加快编译速度
 \documentclass[preprint,5p,sort&compress,times,10pt]{elsarticle} % preprint review  % compress压缩引用序号 
 %% Use the option review to obtain double line spacing
 %% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
@@ -49,8 +51,14 @@
 %                        中文高亮文本设置               *******************************************************
 % -----------------------------------------------------
 \usepackage{ctex} % 中文宏包，取消注释即可输入中文内容 
-\usepackage{xeCJKfntef} % 中文高亮设置，导入此包支持汉字特殊下划线效果 
-\newcommand{\gl}{\CJKsout*[thickness=2.5ex,format=\color{yellow}]} % 新定义高亮命令\gl 用来高亮显示中文
+\usepackage{ifluatex}
+\ifluatex % 设置使用 lualatex 引擎时高亮颜色
+    \usepackage{emoji}
+    \usepackage{luacolor,lua-ul} % lualatex需要使用lua-ul宏包进行高亮设置
+    \newcommand{\gl}[1]{\highLight{#1}}
+\else  % 设置使用 xelatex 引擎时高亮颜色
+    \usepackage{xeCJKfntef} % 中文高亮设置，导入此包支持汉字特殊下划线效果 
+    \newcommand{\gl}{\CJKsout*[thickness=2.5ex,format=\color{yellow}]} % 新定义高亮命令\gl 用来高亮显示中文
 
 % -----------------------------------------------------
 %                        表格格式设置

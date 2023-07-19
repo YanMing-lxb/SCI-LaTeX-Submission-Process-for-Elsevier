@@ -16,7 +16,7 @@
  *  -----------------------------------------------------------------------
  * Author       : 焱铭
  * Date         : 2023-07-01 16:06:50 +0800
- * LastEditTime : 2023-07-05 15:17:23 +0800
+ * LastEditTime : 2023-07-19 09:16:54 +0800
  * Github       : https://github.com/YanMing-lxb/
  * FilePath     : \SCI-LaTeX-Submission-Process-for-Elsevier\README.md
  * Description  : 
@@ -36,5 +36,10 @@
 ### Accepted-Manuscript
 ### Final Manuscript
 
-
+## 技巧
+1. 提高编译速度
+    - 在`documentclass`命令之前根据编译器的不同输入以下对应的命令
+        - \special{dvipdfmx:config z 0} % XeLaTeX取消PDF压缩，加快编译速度
+        - \pdfcompresslevel=0 % PdfLaTeX取消PDF压缩，加快编译速度
+        - \pdfobjcompresslevel=0 % LuaLaTeX取消PDF压缩，加快编译速度
 ## 参与贡献
