@@ -16,7 +16,7 @@
  *  -----------------------------------------------------------------------
  * Author       : 焱铭
  * Date         : 2023-07-01 16:06:50 +0800
- * LastEditTime : 2023-07-20 21:42:49 +0800
+ * LastEditTime : 2023-07-20 21:46:23 +0800
  * Github       : https://github.com/YanMing-lxb/
  * FilePath     : \SCI-LaTeX-Submission-Process-for-Elsevier\README.md
  * Description  : 
@@ -45,7 +45,7 @@
     - EN-Manuscript.tex 使用 PDFLaTeX 编译
 
 ## 注意
-1. abstract 环境中的内容不要为空，否则参考文献引用不会显示
+1. abstract 和 keyword 环境中的内容不要为空，否则参考文献引用不会显示
 2. CN-Manuscript.tex 使用 XeLaTeX 或 LuaLaTeX 编译均可
 3. EN-Manuscript.tex 使用 PDFLaTex、XeLaTeX 与 LuaLaTeX 均可，但 PDFLaTex 编译最快
 
