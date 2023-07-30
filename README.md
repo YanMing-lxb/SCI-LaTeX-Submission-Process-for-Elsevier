@@ -16,7 +16,7 @@
  *  -----------------------------------------------------------------------
  * Author       : 焱铭
  * Date         : 2023-07-01 16:06:50 +0800
- * LastEditTime : 2023-07-23 19:04:08 +0800
+ * LastEditTime : 2023-07-30 16:23:37 +0800
  * Github       : https://github.com/YanMing-lxb/
  * FilePath     : \SCI-LaTeX-Submission-Process-for-Elsevier\README.md
  * Description  : 
@@ -35,6 +35,12 @@
 ### Revision-Minor
 ### Accepted-Manuscript
 ### Final Manuscript
+
+### 本地部署写作
+
+1. 编译该模板中文请使用 XeLaTeX或LuaLaTeX 引擎，英文可选用PdfLaTeX。
+
+2. 本地部署LaTeX环境请转到[YM VSCode Configurations for LaTeX](https://github.com/YanMing-lxb/YM-VSCode-Configurations-for-LaTeX)项目
 
 ## 技巧
 1. 提高编译速度
