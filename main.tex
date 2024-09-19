@@ -16,15 +16,15 @@
 %  -----------------------------------------------------------------------
 % Author       : 焱铭
 % Date         : 2023-07-01 15:54:14 +0800
-% LastEditTime : 2023-07-26 14:32:18 +0800
-% FilePath     : \SCI-LaTeX-Submission-Process-for-Elsevier\EN-Manuscript.tex
+% LastEditTime : 2024-09-19 21:47:15 +0800
+% FilePath     : /SCI-LaTeX-Submission-Process-for-Elsevier/main.tex
 % Description  : Manuscript-CN ⇒ Manuscript-CN ⇒ Major-Revision ⇒ Minor-Revision ⇒ Accepted Manuscript ⇒ Final Manuscript
 %  -----------------------------------------------------------------------
 %
 % \special{dvipdfmx:config z 0}                                                                                % XeLaTeX取消PDF压缩，加快编译速度
 % \pdfcompresslevel=0                                                                                          % PdfLaTeX取消PDF压缩，加快编译速度
 % \pdfobjcompresslevel=0                                                                                       % LuaLaTeX取消PDF压缩，加快编译速度
-\documentclass[preprint,5p,sort&compress,times,10pt]{elsarticle}                                             % preprint review  % compress压缩引用序号 
+\documentclass[preprint,5p,sort&compress,times,UTF8]{elsarticle}                                             % preprint review  % compress压缩引用序号 
 %% Use the option review to obtain double line spacing
 %% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
 
@@ -37,10 +37,10 @@
 %% \documentclass[final,5p,times]{elsarticle}
 %% \documentclass[final,5p,times,twocolumn]{elsarticle}
 
-% ------------------------------------------------------------------------------------------------------------
-%                                                  前言设置
-% ------------------------------------------------------------------------------------------------------------
-% 公式
+% -----------------------------------------------------------------------------------------------------------
+% >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> |宏包设置| <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+% -----------------------------------------------------------------------------------------------------------
+\usepackage[cn]{tagging}                                                                                     % 通过标签进行版本切换
 \usepackage{amsmath}                                                                                         % 公式输入需要 equation 以及多行公式 [fleqn] 所有公式左对齐
 \usepackage{amssymb}                                                                                         % The amsthm package provides extended theorem environments
 \usepackage{xcolor}                                                                                          % 修稿标注时所需颜色宏
@@ -48,20 +48,38 @@
 \usepackage{microtype}                                                                                       % 用于微调字距、字间距和断行，对英文、中文等文本进行优化，使得断行更加美观和平衡
 
 % -----------------------------------------------------
-%                        中文高亮文本设置               *******************************************************
-% % -----------------------------------------------------
-% \usepackage{ctex}                                                                                            % 中文宏包，取消注释即可输入中文内容 
-% \usepackage{ifluatex}                                           
-% \ifluatex                                                                                                    % 设置使用 lualatex 引擎时高亮颜色
-%     \usepackage{emoji}                                          
-%     \usepackage{luacolor,lua-ul}                                                                             % lualatex需要使用lua-ul宏包进行高亮设置
-%     \newcommand{\gl}[1]{\highLight{#1}}                                         
-% \else                                                                                                        % 设置使用 xelatex 引擎时高亮颜色
-%     \usepackage{xeCJKfntef}                                                                                  % 中文高亮设置，导入此包支持汉字特殊下划线效果 
-%     \newcommand{\gl}{\CJKsout*[thickness=2.5ex,format=\color{yellow}]}                                       % 新定义高亮命令\gl 用来高亮显示中文
-% \fi
+% >>>>>>>>>>>>>>>>>>> |中文文本设置| <<<<<<<<<<<<<<<<<<<
 % -----------------------------------------------------
-%                        表格格式设置
+\tagged{cn}{ 
+    \usepackage{ctex}                                                                                        % 中文宏包
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage{soul}
+        \newcommand{\gl}[1]{\textcolor{orange}{##1}}
+        \typeout{<<<<< |使用 PdfLaTeX 进行编译| >>>>>}
+    \else
+        \ifLuaTeX
+            \usepackage{emoji}
+        \usepackage{luacolor,lua-ul}                                                                         % lualatex需要使用lua-ul宏包进行高亮设置
+            \newcommand{\gl}[1]{\highLight{##1}}
+            \typeout{<<<<< |使用 LuaLaTeX 进行编译| >>>>>}
+        \else
+            \ifXeTeX
+                \usepackage{xeCJKfntef}                                                                      % 中文高亮设置, 导入此包支持汉字特殊下划线效果 
+                \newcommand{\gl}{\CJKsout*[thickness=2.5ex,format=\color{yellow}]}                           % 新定义高亮命令\gl 用来高亮显示中文
+                \typeout{<<<<< |使用 XeLaTeX 进行编译| >>>>>}
+            \else
+                \typeout{<<<<< |Please use one of PdfLaTex, LuaLaTeX, XeLaTeX for compilation| >>>>>}
+                \errmessage{<<<<< |请使用 PdfLaTex、LuaLaTeX、XeLaTeX 之一进行编译| >>>>>}
+            \fi
+        \fi
+    \fi
+}
+% <<<<<<<<<<<<<<<<<<< |中文文本设置| >>>>>>>>>>>>>>>>>>>
+
+
+% -----------------------------------------------------
+% >>>>>>>>>>>>>>>>>>> |表格格式设置| <<<<<<<<<<<<<<<<<<<
 % -----------------------------------------------------
 \usepackage[caption=false,farskip=0pt,labelfont={bf}]{subfig}                                                % 设置子图所需宏包
 \usepackage{booktabs}                                                                                        % 三线表
@@ -71,9 +89,14 @@
                                         
 \usepackage[labelfont={bf}]{caption}                                                                         % 题注字体加粗
 \usepackage{setspace}                                                                                        % 使用间距宏包
+\AtBeginEnvironment{tabular}{\scriptsize}                                                                    % 表格字体小五
+\captionsetup[figure]{aboveskip=3pt, belowskip=3pt} 
+\captionsetup[table]{aboveskip=3pt, belowskip=3pt}
+% <<<<<<<<<<<<<<<<<<< |表格格式设置| >>>>>>>>>>>>>>>>>>>
+
 
 % -----------------------------------------------------
-%                        术语表设置
+% >>>>>>>>>>>>>>>>>>>> |术语表设置| <<<<<<<<<<<<<<<<<<<<
 % -----------------------------------------------------
 \usepackage{ifthen}
 \usepackage{framed}                                                                                          % 导入 framed 宏包，用于给内容添加框架效果
@@ -100,9 +123,11 @@
 \itemsep\nomitemsep                                                                                          % 应用上面设置的术语垂直行间距
 }
 \makenomenclature                                                                                            % 打印术语表
+% <<<<<<<<<<<<<<<<<<<< |术语表设置| >>>>>>>>>>>>>>>>>>>>
+
 
 % -----------------------------------------------------
-%                        链接设置
+% >>>>>>>>>>>>>>>>>>> |链接格式设置| <<<<<<<<<<<<<<<<<<<
 % -----------------------------------------------------
 \usepackage{hyperref}                                                                                        % 对目录生成链接，注：该宏包可能与其他宏包冲突，故放在所有引用的宏包之后
 \hypersetup{                                                                                                 % 将链接文字带颜色
@@ -116,9 +141,11 @@
 	pdfauthor = YanMing                                                                                      % 作者
     }
     %\setlength{\mathindent}{0pt} % 将公式的缩进调整为0
+% <<<<<<<<<<<<<<<<<<< |链接格式设置| >>>>>>>>>>>>>>>>>>>
+
 
 % -----------------------------------------------------
-%                        题注及引用设置
+% >>>>>>>>>>>>>>>>>>> |题注格式设置| <<<<<<<<<<<<<<<<<<<
 % -----------------------------------------------------
 \usepackage[capitalise,nameinlink]{cleveref}                                                                 % 引用宏包 ，该宏包要在 hyperref后引用   
                                                                                                              % capitalise 将引用的单词首字母大写
@@ -130,16 +157,24 @@
 \renewcommand\thesubfigure{(\alph{subfigure})}                                                               % 该代码与上一行 设置引用前缀子图序号带圆括号
 \renewcommand{\figurename}{Fig.}                                                                             % 题注中使默认的图名字改为图显示
 \renewcommand{\tablename}{Table}                                                                             % 题注中使默认的表名字改为表显示
-
-
+% <<<<<<<<<<<<<<<<<<< |题注格式设置| >>>>>>>>>>>>>>>>>>>
 
 
 % -----------------------------------------------------
-%                        自定义命令                     *******************************************************
+% >>>>>>>>>>>>>>>>>>> |额外命令设置| <<<<<<<<<<<<<<<<<<<
 % -----------------------------------------------------
-\newcommand{\Process}{2-Manuscript-EN}
-\graphicspath{{\Process/Pictures/},}                                                                         % 图片所在文件夹，可放置多个文件夹，用,分隔。
-\newcommand{\Nomenclature}{\input{\Process/Section/Nomenclature}}                                            % 定义新命令\Nomenclature用于包含术语表的内容
+\graphicspath{{Pictures/},}  % 图片所在文件夹, 可放置多个文件夹, 用,分隔。
+% 定义新命令\Nomenclature用于包含术语表的内容
+\newcommand{\Nomenclature}{
+    \iftagged{cn}
+    {\input{Section/cn00/Nomenclature}}
+    {\input{Section/en00/Nomenclature}}
+    }
+\newcommand{\rn}[1]{\uppercase\expandafter{\romannumeral#1}} % 定义大写罗马数字                                        % 定义新命令\Nomenclature用于包含术语表的内容
+% <<<<<<<<<<<<<<<<<<< |额外命令设置| >>>>>>>>>>>>>>>>>>>
+
+% <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< |宏包设置| >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 
 % -----------------------------------------------------
 %                        目标期刊
@@ -150,13 +185,12 @@
 % ------------------------------------------------------------------------------------------------------------
 \begin{document}
 % \linenumbers                                                                                               % 增加行号 提交修改稿时用
+% \pagecolor[HTML]{e6fcf5}                                                                                   % 设置纸张背景颜色
 
 % -----------------------------------------------------
 %                        封面内容
 % -----------------------------------------------------
 \begin{frontmatter}
-
-
     \title{Paper Title}                                                                                      % 文章标题
 
     \author[rvt]{Yan Ming\corref{cor2}}
@@ -177,38 +211,56 @@
         country={China}}
 
     \begin{abstract}                                                                                          % abstract的内容不要为空，否则参考文献引用不会显示
-        A new microchannel heat sink with embedded modules with ribs and pin-fins is proposed as an effective solution to realize microchannel heat dissipation within low-temperature co-fired ceramic substrates.
-    \end{abstract}
+        \begin{taggedblock}{cn}
+            % \gl{第一句 交代背景}
+            为了解决低温共烧陶瓷（LTCC）基板的热管理问题，我们此前提出了一种带肋条和针脚嵌入式模块的微通道散热器（MC-RPFEM），并对其水热性能进行了研究。
+        \end{taggedblock}
 
-    % 图片摘要
+        \begin{taggedblock}{en}
+            We previously proposed a microchannel heat sink with embedded module with ribs and pin-fins (MC-RPFEM) as a solution to address the thermal management issues of low-temperature co-fired ceramic (LTCC) substrates, and investigate its hydrothermal performance.
+        \end{taggedblock}
+    \end{abstract}
+    
+
+    % 图片摘要设置
     \begin{graphicalabstract}
         \centering
-        \includegraphics*[width=1 \textwidth]{Schematic.jpg}
+        \includegraphics*[width=1 \textwidth]{Graphical-Abstract.jpg}
     \end{graphicalabstract}
 
-
     \begin{highlights}
-        \item Microchannel cooling in a Low-Temperature Co-fired Ceramic substrate;
-        \item A comparison with the performance of similar designs;
-        \item Numerical study of three parameters of this microchannel heat sink.
+        \begin{taggedblock}{cn}
+            \item 提出了一种优化方法来优化MC-RPFEM;
+            \item 对热阻, 温度标准差, 压降进行多目标优化；
+        \end{taggedblock}
+
+        \begin{taggedblock}{en}
+            \item An optimization method is proposed to optimize MC-RPFEM;
+            \item Multi-objective optimization of $R_{th}$, STD, and $\Delta P$;
+        \end{taggedblock}
     \end{highlights}
-
+    
     \begin{keyword}
-        Microchannel heat sink \sep Embedded modules \sep LTCC \sep Rib \sep Pin-fin
+        Microchannel \sep Embedded \sep LTCC \sep Response surface methodology \sep NSGA-\rn{2}
     \end{keyword}
-
 \end{frontmatter}
 
 
-\input{\Process/Section/Section1.tex}
+\begin{taggedblock}{cn}
+    \input{Section/cn00/Section1.tex}
+    \input{Section/cn00/Section2.tex}
+    \input{Section/cn00/Section3.tex}
+    \input{Section/cn00/Section4.tex}
+    \input{Section/cn00/Section5.tex} 
+\end{taggedblock}
 
-\input{\Process/Section/Section2.tex}
-
-\input{\Process/Section/Section3.tex}
-
-\input{\Process/Section/Section4.tex}
-
-\input{\Process/Section/Section5.tex}
+\begin{taggedblock}{en}
+    \input{Section/en00/Section1.tex}
+    \input{Section/en00/Section2.tex}
+    \input{Section/en00/Section3.tex}
+    \input{Section/en00/Section4.tex}
+    \input{Section/en00/Section5.tex} 
+\end{taggedblock}
 
 
 
